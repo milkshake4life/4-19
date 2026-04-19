@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <title>Happy Birthday — Dad</title>
+    <title>Happy Birthday — appa</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,7 +19,7 @@
     <div class="page">
       <header class="hero">
         <p class="hero__eyebrow">April 19</p>
-        <h1 class="hero__title">Happy Birthday, Dad</h1>
+        <h1 class="hero__title">Happy Birthday, appa.</h1>
       </header>
 
       <main class="stage" aria-label="Birthday card scene">
@@ -148,6 +148,32 @@
           </div>
         </article>
       </section>
+
+      <div
+        id="photoLightbox"
+        class="photo-lightbox"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-label="Enlarged photo"
+      >
+        <div
+          class="photo-lightbox__backdrop"
+          id="photoLightboxBackdrop"
+          tabindex="-1"
+        ></div>
+        <div class="photo-lightbox__content">
+          <button
+            type="button"
+            class="photo-lightbox__close"
+            id="photoLightboxClose"
+            aria-label="Close"
+          >
+            Close
+          </button>
+          <img class="photo-lightbox__img" id="photoLightboxImg" src="" alt="" />
+        </div>
+      </div>
     </div>
     <script src="app.js"></script>
   </body>

@@ -5,6 +5,10 @@
   const backdrop = document.getElementById("letterBackdrop");
   const closeBtn = document.getElementById("letterClose");
   const sheet = document.getElementById("letterSheet");
+  const photoLightbox = document.getElementById("photoLightbox");
+  const photoLightboxImg = document.getElementById("photoLightboxImg");
+  const photoLightboxBackdrop = document.getElementById("photoLightboxBackdrop");
+  const photoLightboxClose = document.getElementById("photoLightboxClose");
 
   if (!envelope || !panel) return;
 
@@ -82,8 +86,40 @@
   closeBtn?.addEventListener("click", closeLetter);
   backdrop?.addEventListener("click", closeLetter);
 
+  function openPhotoLightbox(img) {
+    if (!photoLightbox || !photoLightboxImg || !img?.src) return;
+    photoLightboxImg.src = img.currentSrc || img.src;
+    photoLightboxImg.alt = img.alt || "Photo";
+    photoLightbox.hidden = false;
+    document.body.style.overflow = "hidden";
+    photoLightboxClose?.focus();
+  }
+
+  function closePhotoLightbox() {
+    if (!photoLightbox || photoLightbox.hidden) return;
+    photoLightbox.hidden = true;
+    document.body.style.overflow = "";
+    if (photoLightboxImg) photoLightboxImg.src = "";
+  }
+
+  document.querySelectorAll(".photo-card img").forEach((img) => {
+    img.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      openPhotoLightbox(img);
+    });
+  });
+
+  photoLightboxBackdrop?.addEventListener("click", closePhotoLightbox);
+  photoLightboxClose?.addEventListener("click", closePhotoLightbox);
+
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !panel.hidden) closeLetter();
+    if (e.key !== "Escape") return;
+    if (photoLightbox && !photoLightbox.hidden) {
+      closePhotoLightbox();
+      return;
+    }
+    if (!panel.hidden) closeLetter();
   });
 
   const observer = new MutationObserver(() => {
