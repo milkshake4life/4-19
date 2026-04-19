@@ -11,31 +11,62 @@
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
-  const openDelayMs = reduceMotion ? 50 : 1100;
+  /** Flap CSS transition is 0.78s — wait for it before paper lifts. */
+  const FLAP_MS = reduceMotion ? 0 : 780;
+  /** Small beat after flap lands, then paper animates. */
+  const AFTER_FLAP_MS = reduceMotion ? 0 : 160;
+  /** Paper transform transition ~0.65s + buffer before modal. */
+  const AFTER_PAPER_MS = reduceMotion ? 50 : 720;
+
   let busy = false;
+  let openTimer1 = null;
+  let openTimer2 = null;
 
   function openLetter() {
     if (busy || envelope.classList.contains("is-open")) return;
     busy = true;
     envelope.setAttribute("aria-expanded", "true");
-    envelope.classList.remove("is-open");
+    envelope.classList.remove("is-open", "is-opening-paper");
     /* Next frame so the flap can transition from “closed” (hover no longer fights .is-opening). */
     requestAnimationFrame(() => {
-      envelope.classList.add("is-opening");
       if (hint) hint.style.opacity = "0";
 
-      window.setTimeout(() => {
+      if (reduceMotion) {
+        envelope.classList.add("is-opening", "is-opening-paper");
+        openTimer2 = window.setTimeout(() => {
+          envelope.classList.add("is-open");
+          envelope.classList.remove("is-opening", "is-opening-paper");
+          panel.hidden = false;
+          busy = false;
+          openTimer2 = null;
+        }, AFTER_PAPER_MS);
+        return;
+      }
+
+      envelope.classList.add("is-opening");
+
+      openTimer1 = window.setTimeout(() => {
+        envelope.classList.add("is-opening-paper");
+      }, FLAP_MS + AFTER_FLAP_MS);
+
+      openTimer2 = window.setTimeout(() => {
         envelope.classList.add("is-open");
-        envelope.classList.remove("is-opening");
+        envelope.classList.remove("is-opening", "is-opening-paper");
         panel.hidden = false;
         busy = false;
-      }, openDelayMs);
+        openTimer1 = null;
+        openTimer2 = null;
+      }, FLAP_MS + AFTER_FLAP_MS + AFTER_PAPER_MS);
     });
   }
 
   function closeLetter() {
+    if (openTimer1) window.clearTimeout(openTimer1);
+    if (openTimer2) window.clearTimeout(openTimer2);
+    openTimer1 = null;
+    openTimer2 = null;
     panel.hidden = true;
-    envelope.classList.remove("is-open", "is-opening");
+    envelope.classList.remove("is-open", "is-opening", "is-opening-paper");
     envelope.setAttribute("aria-expanded", "false");
     if (hint) hint.style.opacity = "";
   }
