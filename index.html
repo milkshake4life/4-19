@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday — Dad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <p class="hero__eyebrow">April 19</p>
+        <h1 class="hero__title">Happy Birthday, Dad</h1>
+      </header>
+
+      <main class="stage" aria-label="Birthday card scene">
+        <div class="orbit" id="orbit">
+          <!-- Left / right arcs: 30° between neighbors so frames don’t overlap. -->
+          <figure
+            class="photo-card photo-card--arc"
+            style="--angle: 240deg; --arc-delay: 0"
+          >
+            <img src="Photos/Graduation.jpg" alt="" loading="lazy" />
+            <figcaption class="visually-hidden">Memory 1</figcaption>
+          </figure>
+          <figure
+            class="photo-card photo-card--arc"
+            style="--angle: 270deg; --arc-delay: 1"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80"
+              alt=""
+              loading="lazy"
+            />
+          </figure>
+          <figure
+            class="photo-card photo-card--arc"
+            style="--angle: 300deg; --arc-delay: 2"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&q=80"
+              alt=""
+              loading="lazy"
+            />
+          </figure>
+          <figure
+            class="photo-card photo-card--arc"
+            style="--angle: 60deg; --arc-delay: 3"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1476703993599-2d2b207dced4?w=400&q=80"
+              alt=""
+              loading="lazy"
+            />
+          </figure>
+          <figure
+            class="photo-card photo-card--arc"
+            style="--angle: 90deg; --arc-delay: 4"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=400&q=80"
+              alt=""
+              loading="lazy"
+            />
+          </figure>
+          <figure
+            class="photo-card photo-card--arc"
+            style="--angle: 120deg; --arc-delay: 5"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&q=80"
+              alt=""
+              loading="lazy"
+            />
+          </figure>
+        </div>
+
+        <div class="envelope-hitbox">
+          <p class="envelope-hint" id="envelopeHint">Click the envelope</p>
+          <button
+            type="button"
+            class="envelope"
+            id="envelope"
+            aria-expanded="false"
+            aria-controls="letterPanel"
+          >
+            <span class="visually-hidden">Open birthday letter</span>
+            <span class="envelope__shadow" aria-hidden="true"></span>
+            <span class="envelope__back" aria-hidden="true"></span>
+            <span class="envelope__paper" aria-hidden="true"></span>
+            <span
+              class="envelope__pocket-side envelope__pocket-side--left"
+              aria-hidden="true"
+            ></span>
+            <span
+              class="envelope__pocket-side envelope__pocket-side--right"
+              aria-hidden="true"
+            ></span>
+            <span class="envelope__flap" aria-hidden="true"></span>
+          </button>
+        </div>
+      </main>
+
+      <section
+        class="letter-panel"
+        id="letterPanel"
+        hidden
+        aria-live="polite"
+      >
+        <div class="letter-panel__backdrop" id="letterBackdrop"></div>
+        <article class="letter-sheet" id="letterSheet">
+          <button type="button" class="letter-close" id="letterClose">
+            Close
+          </button>
+          <div class="letter-content">
+            <p class="letter-dear">Dear Dad,</p>
+            <p class="letter-body">
+              This is where your birthday letter will go. Tomorrow, replace this
+              placeholder with everything you want him to read—stories, thanks,
+              inside jokes, the whole thing.This is where your birthday letter will go. Tomorrow, replace this
+              placeholder with everything you want him to read—stories, thanks,
+              inside jokes, the whole thing.This is where your birthday letter will go. Tomorrow, replace this
+              placeholder with everything you want him to read—stories, thanks,
+              inside jokes, the whole thing.This is where your birthday letter will go. Tomorrow, replace this
+              placeholder with everything you want him to read—stories, thanks,
+              inside jokes, the whole thing.This is where your birthday letter will go. Tomorrow, replace this
+              placeholder with everything you want him to read—stories, thanks,
+              inside jokes, the whole thing.This is where your birthday letter will go. Tomorrow, replace this
+              placeholder with everything you want him to read—stories, thanks,
+              inside jokes, the whole thing.This is where your birthday letter will go. Tomorrow, replace this
+              placeholder with everything you want him to read—stories, thanks,
+              inside jokes, the whole thing.
+            </p>
+            <p class="letter-body">
+              The envelope animation is a preview: tap it again after closing
+              to replay (refresh the page to reset fully).
+            </p>
+            <p class="letter-love">With love,<br />[Your name]</p>
+          </div>
+        </article>
+      </section>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
